@@ -1,0 +1,14 @@
+go 1.26.4
+
+use (
+	./app/api-gateway
+	./app/attendance-service
+	./app/auth-service
+	./app/branch-service
+	./app/employee-service
+	./app/member-service
+	./app/membership-service
+	./app/notification-service
+	./app/payment-service
+	./packages
+)

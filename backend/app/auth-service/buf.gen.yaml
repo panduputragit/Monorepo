@@ -1,0 +1,8 @@
+version: v1
+managed:
+  enabled: true
+  go_package_prefix:
+    default: github.com/panduputragit/gym/backend/packages/gen
+plugins:
+  - remote: buf.build/grpc/go:v1.3.0
+  - remote: buf.build/protocolbuffers/go:v1.6.0
