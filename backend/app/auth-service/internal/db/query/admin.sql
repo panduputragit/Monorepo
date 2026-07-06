@@ -25,3 +25,6 @@ ORDER BY created_at DESC;
 UPDATE admin_sessions
 SET revoked_at = NOW(), revoked_by = $2
 WHERE id = $1;
+
+-- name: GetAdminProfile :one
+SELECT id, email, created_at FROM admins where id = $1;

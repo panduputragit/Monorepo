@@ -11,6 +11,7 @@ func RegisterRoutes(router *gin.Engine, h *handler.Handler) {
 	admin.POST("/logout", h.AdminLogout)
 	admin.GET("/sessions", h.ListAdminSessions)
 	admin.DELETE("/sessions/:id", h.ForceRevokeAdminSession)
+	admin.GET("/my-profile", h.GetAdminProfile)
 
 	member := router.Group("/member")
 	member.POST("/login", h.MemberLogin)

@@ -5,12 +5,11 @@ import (
 	"errors"
 
 	"github.com/gin-gonic/gin"
+	"github.com/google/uuid"
 	authdb "github.com/panduputragit/gym/backend/app/auth-service/internal/db/gen"
 	"github.com/panduputragit/gym/backend/app/auth-service/internal/response"
 	"github.com/panduputragit/gym/backend/app/auth-service/internal/token"
-	"github.com/google/uuid"
 )
-
 
 func (h *Handler) AdminLogout(c *gin.Context) {
 	payload, ok := h.requireAdminToken(c)
@@ -60,6 +59,16 @@ func (h *Handler) requireAdminToken(c *gin.Context) (*token.Payload, bool) {
 
 	if payload.Role != "admin" {
 		response.Unauthorized(c, "forbidden")
+		return nil, false
+	}
+
+	session, err := h.query.GetAdminSession(c.Request.Context(), payload.ID)
+	if err != nil {
+		response.Unauthorized(c, "session not found")
+		return nil, false
+	}
+	if session.RevokedAt.Valid {
+		response.Unauthorized(c, "session has been revoked")
 		return nil, false
 	}
 

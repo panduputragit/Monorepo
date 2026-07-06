@@ -14,3 +14,6 @@ WHERE token_id = $1 LIMIT 1;
 UPDATE member_refresh_tokens
 SET revoked_at = NOW()
 WHERE token_id = $1;
+
+-- name: GetMemberProfile :one
+SELECT id, email, created_at FROM members where id = $1;

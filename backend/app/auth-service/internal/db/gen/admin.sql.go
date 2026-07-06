@@ -46,6 +46,23 @@ func (q *Queries) GetAdminByEmail(ctx context.Context, email string) (GetAdminBy
 	return i, err
 }
 
+const getAdminProfile = `-- name: GetAdminProfile :one
+SELECT id, email, created_at FROM admins where id = $1
+`
+
+type GetAdminProfileRow struct {
+	ID        uuid.UUID    `json:"id"`
+	Email     string       `json:"email"`
+	CreatedAt sql.NullTime `json:"created_at"`
+}
+
+func (q *Queries) GetAdminProfile(ctx context.Context, id uuid.UUID) (GetAdminProfileRow, error) {
+	row := q.db.QueryRowContext(ctx, getAdminProfile, id)
+	var i GetAdminProfileRow
+	err := row.Scan(&i.ID, &i.Email, &i.CreatedAt)
+	return i, err
+}
+
 const getAdminSession = `-- name: GetAdminSession :one
 SELECT id, admin_id, token_id, expires_at, revoked_at
 FROM admin_sessions

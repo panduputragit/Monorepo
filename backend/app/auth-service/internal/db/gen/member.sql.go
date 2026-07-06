@@ -46,6 +46,23 @@ func (q *Queries) GetMemberByEmail(ctx context.Context, email string) (GetMember
 	return i, err
 }
 
+const getMemberProfile = `-- name: GetMemberProfile :one
+SELECT id, email, created_at FROM members where id = $1
+`
+
+type GetMemberProfileRow struct {
+	ID        uuid.UUID    `json:"id"`
+	Email     string       `json:"email"`
+	CreatedAt sql.NullTime `json:"created_at"`
+}
+
+func (q *Queries) GetMemberProfile(ctx context.Context, id uuid.UUID) (GetMemberProfileRow, error) {
+	row := q.db.QueryRowContext(ctx, getMemberProfile, id)
+	var i GetMemberProfileRow
+	err := row.Scan(&i.ID, &i.Email, &i.CreatedAt)
+	return i, err
+}
+
 const getMemberRefreshToken = `-- name: GetMemberRefreshToken :one
 SELECT id, member_id, token_id, expires_at, revoked_at
 FROM member_refresh_tokens

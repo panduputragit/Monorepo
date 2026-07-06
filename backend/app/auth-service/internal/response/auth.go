@@ -30,3 +30,7 @@ func Unauthorized(c *gin.Context, msg string) {
 func InternalError(c *gin.Context, msg string) {
 	c.JSON(http.StatusInternalServerError, envelope{Error: msg})
 }
+
+func NotFound(c *gin.Context, msg string) {
+	c.JSON(http.StatusNotFound, envelope{Error: msg})
+}
