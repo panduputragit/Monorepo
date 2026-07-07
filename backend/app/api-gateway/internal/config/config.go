@@ -17,8 +17,6 @@ type Config struct {
 }
 
 func Load() Config {
-	_ = sharedconfig.LoadEnv(".env", "../../.env", "../../../.env")
-
 	return Config{
 		Name:            sharedconfig.String("SERVICE_NAME", "api-gateway"),
 		Port:            sharedconfig.String("API_GATEWAY_PORT", sharedconfig.String("PORT", "8080")),
