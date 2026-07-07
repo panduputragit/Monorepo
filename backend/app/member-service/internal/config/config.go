@@ -10,8 +10,6 @@ type Config struct {
 }
 
 func Load() Config {
-	_ = sharedconfig.LoadEnv(".env", "../../.env", "../../../.env")
-
 	return Config{
 		Name:        sharedconfig.String("SERVICE_NAME", "member-service"),
 		Port:        sharedconfig.String("MEMBER_SERVICE_PORT", sharedconfig.String("PORT", "5004")),
