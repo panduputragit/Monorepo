@@ -7,11 +7,13 @@ import (
 
 	"github.com/panduputragit/gym/backend/app/payment-service/internal/config"
 	servicehttp "github.com/panduputragit/gym/backend/app/payment-service/internal/http"
+	sharedconfig "github.com/panduputragit/gym/backend/packages/config"
 	"github.com/panduputragit/gym/backend/packages/database"
 	"github.com/panduputragit/gym/backend/packages/httpserver"
 )
 
 func main() {
+	sharedconfig.MustInit()
 	cfg := config.Load()
 	db, err := database.ConnectOptional(context.Background(), database.Config{URL: cfg.DatabaseURL})
 	if err != nil {

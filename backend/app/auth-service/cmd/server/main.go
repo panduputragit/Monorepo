@@ -9,11 +9,13 @@ import (
 	"github.com/panduputragit/gym/backend/app/auth-service/internal/handler"
 	authhttp "github.com/panduputragit/gym/backend/app/auth-service/internal/http"
 	"github.com/panduputragit/gym/backend/app/auth-service/internal/token"
+	sharedconfig "github.com/panduputragit/gym/backend/packages/config"
 	"github.com/panduputragit/gym/backend/packages/database"
 	"github.com/panduputragit/gym/backend/packages/httpserver"
 )
 
 func main() {
+	sharedconfig.MustInit()
 	cfg := config.Load()
 
 	db, err := database.Connect(context.Background(), database.Config{URL: cfg.DatabaseURL})

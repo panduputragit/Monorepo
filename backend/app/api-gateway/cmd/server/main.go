@@ -6,10 +6,12 @@ import (
 
 	"github.com/panduputragit/gym/backend/app/api-gateway/internal/config"
 	gatewayhttp "github.com/panduputragit/gym/backend/app/api-gateway/internal/http"
+	sharedconfig "github.com/panduputragit/gym/backend/packages/config"
 	"github.com/panduputragit/gym/backend/packages/httpserver"
 )
 
 func main() {
+	sharedconfig.MustInit()
 	cfg := config.Load()
 	router := httpserver.NewRouter(cfg.Name, cfg.GinMode)
 
