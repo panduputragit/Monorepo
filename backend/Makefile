@@ -10,7 +10,7 @@ RUN_TARGETS := $(addprefix run-,$(SERVICES))
 # Generate proto code
 gen:
 	@echo "Generating proto code..."
-	cd protos && buf generate
+	PATH=$(HOME)/go/bin:$(PATH) buf generate protos/
 
 # -----------------------
 # Build

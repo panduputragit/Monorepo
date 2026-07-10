@@ -5,8 +5,10 @@ import sharedconfig "github.com/panduputragit/gym/backend/packages/config"
 type Config struct {
 	Name            string
 	Port            string
+	GRPCPort        string
 	GinMode         string
 	AuthURL         string
+	AuthGRPCAddr    string
 	EmployeeURL     string
 	BranchURL       string
 	MemberURL       string
@@ -18,17 +20,29 @@ type Config struct {
 
 func Load() Config {
 	return Config{
-		Name:            sharedconfig.String("SERVICE_NAME", "api-gateway"),
-		Port:            sharedconfig.String("API_GATEWAY_PORT", sharedconfig.String("PORT", "8080")),
-		GinMode:         sharedconfig.String("GIN_MODE", "debug"),
-		AuthURL:         sharedconfig.String("AUTH_SERVICE_URL", "http://localhost:5001"),
-		EmployeeURL:     sharedconfig.String("EMPLOYEE_SERVICE_URL", "http://localhost:5002"),
-		BranchURL:       sharedconfig.String("BRANCH_SERVICE_URL", "http://localhost:5003"),
-		MemberURL:       sharedconfig.String("MEMBER_SERVICE_URL", "http://localhost:5004"),
-		MembershipURL:   sharedconfig.String("MEMBERSHIP_SERVICE_URL", "http://localhost:5005"),
-		AttendanceURL:   sharedconfig.String("ATTENDANCE_SERVICE_URL", "http://localhost:5006"),
+		Name: sharedconfig.String("SERVICE_NAME", "api-gateway"),
+
+		Port:     sharedconfig.String("API_GATEWAY_PORT", sharedconfig.String("PORT", "8080")),
+		GRPCPort: sharedconfig.String("API_GATEWAY_GRPC_PORT", "9000"),
+
+		GinMode: sharedconfig.String("GIN_MODE", "debug"),
+
+		AuthURL:      sharedconfig.String("AUTH_SERVICE_URL", "http://localhost:5001"),
+		AuthGRPCAddr: sharedconfig.String("AUTH_SERVICE_GRPC_ADDR", "localhost:9001"),
+
+		EmployeeURL: sharedconfig.String("EMPLOYEE_SERVICE_URL", "http://localhost:5002"),
+
+		BranchURL: sharedconfig.String("BRANCH_SERVICE_URL", "http://localhost:5003"),
+
+		MemberURL: sharedconfig.String("MEMBER_SERVICE_URL", "http://localhost:5004"),
+
+		MembershipURL: sharedconfig.String("MEMBERSHIP_SERVICE_URL", "http://localhost:5005"),
+
+		AttendanceURL: sharedconfig.String("ATTENDANCE_SERVICE_URL", "http://localhost:5006"),
+
 		NotificationURL: sharedconfig.String("NOTIFICATION_SERVICE_URL", "http://localhost:5007"),
-		PaymentURL:      sharedconfig.String("PAYMENT_SERVICE_URL", "http://localhost:5008"),
+
+		PaymentURL: sharedconfig.String("PAYMENT_SERVICE_URL", "http://localhost:5008"),
 	}
 }
 

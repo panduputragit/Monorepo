@@ -9,7 +9,7 @@ import (
 )
 
 func RegisterRoutes(router *gin.Engine, serviceURLs map[string]string) error {
-	api := router.Group("/api/v1")
+	api := router.Group("/api")
 	for service, rawURL := range serviceURLs {
 		target, err := url.Parse(rawURL)
 		if err != nil {
@@ -46,7 +46,7 @@ func forward(path, rawURL string) gin.HandlerFunc {
 }
 
 func proxyHandler(service string, target *url.URL, proxy *httputil.ReverseProxy) gin.HandlerFunc {
-	prefix := "/api/v1/" + service
+	prefix := "/api/" + service
 	return func(c *gin.Context) {
 		c.Request.URL.Path = strings.TrimPrefix(c.Request.URL.Path, prefix)
 		if c.Request.URL.Path == "" {
