@@ -6,6 +6,7 @@ option go_package = "github.com/panduputragit/gym/backend/proto/auth/v1;authpb";
 
 service AuthService {
   rpc AdminLogin(AdminLoginRequest) returns (AdminLoginResponse);
+  rpc AdminLogout(AdminLogoutRequest) returns (AdminLogoutResponse);
 }
 
 message AdminLoginRequest {
@@ -17,4 +18,10 @@ message AdminLoginResponse {
   string access_token = 1;
   int64 expires_in = 2;
   string role = 3;
+}
+
+message AdminLogoutRequest{}
+
+message AdminLogoutResponse{
+  string message = 1;
 }

@@ -7,19 +7,11 @@ import (
 	"time"
 
 	authdb "github.com/panduputragit/gym/backend/app/auth-service/internal/db/gen"
-	"github.com/panduputragit/gym/backend/app/auth-service/internal/token"
 	authpb "github.com/panduputragit/gym/backend/packages/proto/auth/v1"
 	"golang.org/x/crypto/bcrypt"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
 )
-
-type AuthServer struct {
-	authpb.UnimplementedAuthServiceServer
-
-	Queries *authdb.Queries
-	Token   *token.Maker
-}
 
 func (s *AuthServer) AdminLogin(
 	ctx context.Context,
